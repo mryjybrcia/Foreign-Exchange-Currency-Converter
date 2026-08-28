@@ -125,7 +125,20 @@ ul { list-style: none; padding: 0; }
   padding-block: 1.25rem;
 }
 
-.brand { display: block; line-height: 0; }
+/* inline-flex (not line-height:0) keeps the SVG flush without collapsing the
+   alt text, so a failed load still reads as the wordmark rather than a
+   default-blue underlined link. */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.0625em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
 .brand img { width: 8.6875rem; height: 1.625rem; }
 
 .site-header__meta {
