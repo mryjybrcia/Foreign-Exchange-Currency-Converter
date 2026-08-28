@@ -13,6 +13,23 @@
 </head>
 <body>
 
+<!-- Icons inlined from assets/images/icon-*.svg. Kept in one sprite so no
+     icon can 404, and so each inherits its colour via currentColor. -->
+<svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+  <defs>
+    <symbol id="i-arrow-right" viewBox="0 0 11 11" fill="none"><path fill="currentColor" d="M5.11.088c.093-.117.28-.117.398 0l4.898 4.898a.27.27 0 0 1 0 .399l-4.898 4.898c-.117.117-.305.117-.399 0l-.468-.445c-.118-.117-.118-.305 0-.399l3.632-3.656H.281A.27.27 0 0 1 0 5.502v-.656c0-.14.117-.282.281-.282h7.992L4.641.932c-.118-.094-.118-.282 0-.399z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 12 12" fill="none"><path fill="currentColor" d="M10.207 1.957c.117-.117.305-.117.398 0l.68.656c.094.117.094.305 0 .399l-7.031 7.031a.27.27 0 0 1-.399 0L.715 6.926c-.094-.117-.094-.305 0-.399l.68-.68c.093-.093.28-.093.398 0l2.25 2.274z"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 12 12" fill="none"><path fill="currentColor" d="M2.988 4.02h6.024c.422 0 .633.515.328.82l-3 3a.48.48 0 0 1-.68 0l-3-3c-.304-.305-.093-.82.328-.82"/></symbol>
+    <symbol id="i-delete" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="M12.875 3.875c.188 0 .375.188.375.375v.375c0 .21-.187.375-.375.375H12.5l-.516 7.945c-.023.586-.539 1.055-1.125 1.055H5.117c-.586 0-1.101-.469-1.125-1.055L3.5 5h-.375a.37.37 0 0 1-.375-.375V4.25c0-.187.164-.375.375-.375h1.922l.797-1.312c.187-.305.61-.563.96-.563h2.368c.351 0 .773.258.96.563l.798 1.312zm-6.07-.75-.446.75h3.258l-.445-.75zm4.054 9.75L11.352 5H4.625l.492 7.875z"/></symbol>
+    <symbol id="i-delete-filled" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="M12.875 2.75c.188 0 .375.188.375.375v.75c0 .21-.187.375-.375.375h-9.75a.37.37 0 0 1-.375-.375v-.75c0-.187.164-.375.375-.375h2.813l.21-.422c.07-.187.305-.328.493-.328h2.695c.187 0 .398.14.492.328l.235.422zM3.992 12.945 3.5 5h9l-.516 7.945c-.023.586-.539 1.055-1.125 1.055H5.117c-.586 0-1.101-.469-1.125-1.055"/></symbol>
+    <symbol id="i-exchange" viewBox="0 0 20 20" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 9 2 5l4-4M2 5h16m-4 6 4 4-4 4m4-4H2"/></symbol>
+    <symbol id="i-exchange-vertical" viewBox="0 0 20 20" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11 6 4-4 4 4m-4-4v16m-6-4-4 4-4-4m4 4V2"/></symbol>
+    <symbol id="i-search" viewBox="0 0 14 20" fill="none"><path fill="currentColor" d="M13.89 15.814c.137.137.137.355 0 .465l-.628.629c-.11.136-.328.136-.465 0l-3.309-3.309a.44.44 0 0 1-.082-.246v-.355a5.76 5.76 0 0 1-3.719 1.367A5.683 5.683 0 0 1 0 8.677C0 5.56 2.543 2.99 5.688 2.99c3.117 0 5.687 2.57 5.687 5.687a5.73 5.73 0 0 1-1.395 3.719h.356c.082 0 .164.055.246.11zm-8.202-2.762a4.37 4.37 0 0 0 4.375-4.375 4.39 4.39 0 0 0-4.376-4.375 4.37 4.37 0 0 0-4.374 4.375 4.353 4.353 0 0 0 4.375 4.375"/></symbol>
+    <symbol id="i-star" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="M13.637 6.02c.61.094.843.844.398 1.29l-2.46 2.413.585 3.399c.094.61-.562 1.078-1.101.797l-3.047-1.617-3.07 1.617c-.54.28-1.196-.188-1.102-.797l.586-3.399L1.965 7.31c-.446-.445-.211-1.195.398-1.289l3.446-.492 1.523-3.117c.281-.563 1.078-.54 1.336 0l1.547 3.117zm-3.282 3.305 2.368-2.297-3.258-.469-1.453-2.953L6.535 6.56l-3.258.469 2.367 2.297-.562 3.234 2.93-1.523 2.906 1.523z"/></symbol>
+    <symbol id="i-star-filled" viewBox="0 0 16 16" fill="none"><path fill="currentColor" d="M7.332 2.41c.281-.562 1.078-.538 1.336 0l1.547 3.118 3.422.492c.61.094.843.844.398 1.29l-2.46 2.413.585 3.399c.094.61-.562 1.078-1.101.797l-3.047-1.617-3.07 1.617c-.54.28-1.196-.188-1.102-.797l.586-3.399L1.965 7.31c-.446-.445-.211-1.195.398-1.289l3.446-.492z"/></symbol>
+  </defs>
+</svg>
+
 <a class="skip-link" href="#main">Skip to main content</a>
 
 <!-- ============================= Header ============================= -->
@@ -59,13 +76,14 @@
                     aria-haspopup="dialog" aria-expanded="false" aria-label="Send currency: US Dollar. Change currency">
               <img class="currency-btn__flag" id="from-flag" src="./assets/images/flags/us.webp" alt="" width="20" height="20">
               <span class="currency-btn__code" id="from-code">USD</span>
-              <img class="currency-btn__chevron" src="./assets/images/icon-chevron-down.svg" alt="" width="12" height="12">
+              <svg class="currency-btn__chevron" aria-hidden="true" focusable="false"><use href="#i-chevron-down"/></svg>
             </button>
           </div>
         </div>
 
         <button class="swap-btn" type="button" id="swap-btn" aria-label="Swap send and receive currencies">
-          <img class="swap-btn__icon" src="./assets/images/icon-exchange.svg" alt="" width="20" height="20">
+          <svg class="swap-btn__icon swap-btn__icon--h" aria-hidden="true" focusable="false"><use href="#i-exchange"/></svg>
+          <svg class="swap-btn__icon swap-btn__icon--v" aria-hidden="true" focusable="false"><use href="#i-exchange-vertical"/></svg>
         </button>
 
         <div class="field">
@@ -77,7 +95,7 @@
                     aria-haspopup="dialog" aria-expanded="false" aria-label="Receive currency: Euro. Change currency">
               <img class="currency-btn__flag" id="to-flag" src="./assets/images/flags/eu.webp" alt="" width="20" height="20">
               <span class="currency-btn__code" id="to-code">EUR</span>
-              <img class="currency-btn__chevron" src="./assets/images/icon-chevron-down.svg" alt="" width="12" height="12">
+              <svg class="currency-btn__chevron" aria-hidden="true" focusable="false"><use href="#i-chevron-down"/></svg>
             </button>
           </div>
         </div>
@@ -87,8 +105,8 @@
         <p class="rate-line" id="rate-line" role="status">Fetching the latest rate&hellip;</p>
         <div class="converter__actions">
           <button class="btn btn--fav" type="button" id="fav-toggle" aria-pressed="false">
-            <img class="btn__icon btn__icon--off" src="./assets/images/icon-star.svg" alt="" width="16" height="16">
-            <img class="btn__icon btn__icon--on" src="./assets/images/icon-star-filled.svg" alt="" width="16" height="16">
+            <svg class="btn__icon btn__icon--off" aria-hidden="true" focusable="false"><use href="#i-star"/></svg>
+            <svg class="btn__icon btn__icon--on" aria-hidden="true" focusable="false"><use href="#i-star-filled"/></svg>
             <span id="fav-label">Favorite</span>
           </button>
           <button class="btn btn--accent" type="button" id="log-btn">Log conversion</button>
@@ -100,7 +118,7 @@
   <!-- ========================= Currency picker ====================== -->
   <div class="picker" id="picker" role="dialog" aria-modal="false" aria-label="Choose a currency" hidden>
     <div class="picker__search">
-      <img src="./assets/images/icon-search.svg" alt="" width="14" height="20">
+      <svg class="picker__search-icon" aria-hidden="true" focusable="false"><use href="#i-search"/></svg>
       <input type="search" id="picker-search" placeholder="Search currencies..."
              autocomplete="off" spellcheck="false" aria-label="Search currencies">
     </div>
@@ -153,7 +171,7 @@
           <span id="mtabs-label">History</span>
           <span class="badge" id="mtabs-badge" hidden>0</span>
         </span>
-        <img class="mtabs__chevron" src="./assets/images/icon-chevron-down.svg" alt="" width="12" height="12">
+        <svg class="mtabs__chevron" aria-hidden="true" focusable="false"><use href="#i-chevron-down"/></svg>
       </button>
       <ul class="mtabs__menu" id="mtabs-menu" role="listbox" aria-label="Rate details" hidden>
         <li><button class="mtabs__item" type="button" role="option" aria-selected="true" data-tab="history">

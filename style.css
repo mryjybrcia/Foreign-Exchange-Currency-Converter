@@ -51,6 +51,19 @@
    user-agent rule for [hidden]. */
 [hidden] { display: none !important; }
 
+/* The inline icon sprite: present in the DOM, absent from the layout. */
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* Sprite icons take their colour from the element they sit in. */
+.icon, [class*="__icon"], .check, .row__arrow,
+.currency-btn__chevron, .mtabs__chevron, .picker__search-icon {
+  fill: currentColor;
+  stroke: none;
+  flex: none;
+  max-width: none;      /* keep their exact px size inside padded buttons */
+}
+.swap-btn__icon, .picker__search-icon { fill: none; stroke: currentColor; }
+
 html { -webkit-text-size-adjust: 100%; }
 
 body {
@@ -314,6 +327,7 @@ ul { list-style: none; padding: 0; }
 }
 .swap-btn:hover { background-color: var(--surface-3); border-color: var(--line-3); }
 .swap-btn__icon { width: 1.25rem; height: 1.25rem; }
+.swap-btn__icon--v { display: none; }
 
 /* Currency button */
 
@@ -400,7 +414,7 @@ ul { list-style: none; padding: 0; }
 }
 .btn--fav[aria-pressed="true"]:hover { background-color: #d8ff4d; }
 .btn--fav[aria-pressed="true"] .btn__icon--off { display: none; }
-.btn--fav[aria-pressed="true"] .btn__icon--on  { display: block; filter: brightness(0); }
+.btn--fav[aria-pressed="true"] .btn__icon--on  { display: block; }
 
 /* Lime-outlined action */
 .btn--accent {
@@ -451,7 +465,7 @@ ul { list-style: none; padding: 0; }
   transition: border-color 150ms ease;
 }
 .picker__search:focus-within { border-color: var(--accent); }
-.picker__search img { width: 0.875rem; height: 1.25rem; flex: none; }
+.picker__search-icon { width: 0.875rem; height: 1.25rem; }
 
 .picker__search input {
   flex: 1;
@@ -874,8 +888,9 @@ ul { list-style: none; padding: 0; }
   transition: background-color 140ms ease, border-color 140ms ease;
 }
 .icon-btn:hover { background-color: var(--surface-3); border-color: var(--line-3); }
-.icon-btn img { width: 1rem; height: 1rem; }
-.icon-btn[aria-pressed="true"] { border-color: var(--accent); }
+.icon-btn { color: var(--text); }
+.icon-btn .icon { width: 1rem; height: 1rem; }
+.icon-btn[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
 
 /* Delete swaps to the filled icon on hover / keyboard focus. */
 .icon-btn__icon--on { display: none; }
@@ -973,7 +988,8 @@ ul { list-style: none; padding: 0; }
   .converter__top { flex-direction: column; align-items: stretch; gap: 1rem; padding: 1rem; }
   .field { padding: 1rem; }
   .swap-btn { align-self: center; }
-  .swap-btn__icon { content: url("./assets/images/icon-exchange-vertical.svg"); }
+  .swap-btn__icon--h { display: none; }
+  .swap-btn__icon--v { display: block; }
 
   .converter__bottom { flex-direction: column; align-items: stretch; gap: 1rem; padding: 1rem; }
   .converter__actions { gap: 0.5rem; }

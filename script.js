@@ -66,14 +66,17 @@
     return node;
   }
 
-  function img(src, cls, size) {
-    var node = document.createElement("img");
-    node.src = src;
-    node.alt = "";
-    if (cls) node.className = cls;
-    node.width = size || 16;
-    node.height = size || 16;
-    return node;
+  /* Icons come from the inline sprite in index.html, so they cannot 404 and
+     they take their colour from the CSS `color` of whatever contains them. */
+  function icon(nameId, cls) {
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    if (cls) svg.setAttribute("class", cls);
+    svg.setAttribute("aria-hidden", "true");
+    svg.setAttribute("focusable", "false");
+    var use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+    use.setAttribute("href", "#i-" + nameId);
+    svg.appendChild(use);
+    return svg;
   }
 
   function read(key, fallback) {
@@ -370,7 +373,7 @@
     btn.appendChild(flagImg(code, "flag", 20));
     btn.appendChild(el("span", "code", code));
     btn.appendChild(el("span", "name", name(code)));
-    btn.appendChild(img("./assets/images/icon-check.svg", "check", 12));
+    btn.appendChild(icon("check", "check"));
 
     li.appendChild(btn);
     return li;
@@ -642,8 +645,7 @@
     btn.setAttribute("aria-pressed", String(pinned));
     btn.setAttribute("aria-label", (pinned ? "Unpin " : "Pin ") + key.replace("/", " to "));
     btn.dataset.pair = key;
-    btn.appendChild(img(pinned ? "./assets/images/icon-star-filled.svg"
-                               : "./assets/images/icon-star.svg", null, 16));
+    btn.appendChild(icon(pinned ? "star-filled" : "star", "icon"));
     return btn;
   }
 
@@ -734,7 +736,7 @@
       pairBtn.dataset.setPair = key;
       pairBtn.setAttribute("aria-label", "Show " + p[0] + " to " + p[1] + " in the converter");
       pairBtn.appendChild(el("span", null, p[0]));
-      pairBtn.appendChild(img("./assets/images/icon-arrow-right.svg", "row__arrow", 10));
+      pairBtn.appendChild(icon("arrow-right", "row__arrow"));
       pairBtn.appendChild(el("span", null, p[1]));
       li.appendChild(pairBtn);
 
@@ -779,7 +781,7 @@
 
       var pair = el("span", "row__pair");
       pair.appendChild(el("span", null, entry.from));
-      pair.appendChild(img("./assets/images/icon-arrow-right.svg", "row__arrow", 10));
+      pair.appendChild(icon("arrow-right", "row__arrow"));
       pair.appendChild(el("span", null, entry.to));
       li.appendChild(pair);
 
@@ -795,8 +797,8 @@
         "Delete the logged conversion of " + fmtMoney(entry.amount) + " " + entry.from +
         " to " + entry.to);
       /* Outline icon by default, filled on hover/focus — CSS swaps them. */
-      del.appendChild(img("./assets/images/icon-delete.svg", "icon-btn__icon--off", 16));
-      del.appendChild(img("./assets/images/icon-delete-filled.svg", "icon-btn__icon--on", 16));
+      del.appendChild(icon("delete", "icon icon-btn__icon--off"));
+      del.appendChild(icon("delete-filled", "icon icon-btn__icon--on"));
       li.appendChild(del);
 
       dom.logList.appendChild(li);
