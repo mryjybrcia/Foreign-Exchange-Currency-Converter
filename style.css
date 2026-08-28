@@ -139,7 +139,9 @@ ul { list-style: none; padding: 0; }
   text-transform: uppercase;
   white-space: nowrap;
 }
-.brand img { width: 8.6875rem; height: 1.625rem; }
+/* The inline SVG carries width/height attributes too, so the mark still
+   renders at the right size if this stylesheet is cached or missing. */
+.brand__logo { width: 8.6875rem; height: 1.625rem; }
 
 .site-header__meta {
   color: var(--text-muted);
