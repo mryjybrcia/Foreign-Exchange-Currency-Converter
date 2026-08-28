@@ -862,6 +862,13 @@ ul { list-style: none; padding: 0; }
 .icon-btn img { width: 1rem; height: 1rem; }
 .icon-btn[aria-pressed="true"] { border-color: var(--accent); }
 
+/* Delete swaps to the filled icon on hover / keyboard focus. */
+.icon-btn__icon--on { display: none; }
+.icon-btn--delete:hover  .icon-btn__icon--off,
+.icon-btn--delete:focus-visible .icon-btn__icon--off { display: none; }
+.icon-btn--delete:hover  .icon-btn__icon--on,
+.icon-btn--delete:focus-visible .icon-btn__icon--on { display: block; }
+
 /* ---------------------------- Empty states ------------------------------ */
 
 .empty {

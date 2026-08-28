@@ -778,13 +778,15 @@
       amounts.appendChild(el("span", "in", fmtMoney(entry.result)));
       li.appendChild(amounts);
 
-      var del = el("button", "icon-btn");
+      var del = el("button", "icon-btn icon-btn--delete");
       del.type = "button";
       del.dataset.remove = entry.id;
       del.setAttribute("aria-label",
         "Delete the logged conversion of " + fmtMoney(entry.amount) + " " + entry.from +
         " to " + entry.to);
-      del.appendChild(img("./assets/images/icon-delete.svg", null, 16));
+      /* Outline icon by default, filled on hover/focus — CSS swaps them. */
+      del.appendChild(img("./assets/images/icon-delete.svg", "icon-btn__icon--off", 16));
+      del.appendChild(img("./assets/images/icon-delete-filled.svg", "icon-btn__icon--on", 16));
       li.appendChild(del);
 
       dom.logList.appendChild(li);
