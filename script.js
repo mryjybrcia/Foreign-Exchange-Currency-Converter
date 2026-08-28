@@ -19,19 +19,13 @@
     ["USD", "CNY"], ["USD", "SGD"], ["USD", "INR"], ["USD", "MXN"]
   ];
 
-  /* Currency code -> flag file (assets/images/flags/<cc>.webp).
-     Currencies with no asset fall back to a lime monogram disc. */
-  var FLAGS = {
-    AED: "ae", ARS: "ar", AUD: "au", BDT: "bd", BGN: "bg", BHD: "bh", BRL: "br",
-    CAD: "ca", CHF: "ch", CLP: "cl", CNY: "cn", COP: "co", CZK: "cz", DKK: "dk",
-    EGP: "eg", EUR: "eu", GBP: "gb", HKD: "hk", HNL: "hn", HRK: "hr", HTG: "ht",
-    HUF: "hu", IDR: "id", INR: "in", ISK: "is", JOD: "jo", JPY: "jp", KES: "ke",
-    KRW: "kr", KWD: "kw", LBP: "lb", LKR: "lk", MAD: "ma", MXN: "mx", MYR: "my",
-    NGN: "ng", NOK: "no", NPR: "np", NZD: "nz", OMR: "om", PEN: "pe", PHP: "ph",
-    PKR: "pk", PLN: "pl", QAR: "qa", RON: "ro", RUB: "ru", SAR: "sa", SEK: "se",
-    SGD: "sg", THB: "th", TRY: "tr", TWD: "tw", UAH: "ua", USD: "us", VND: "vn",
-    XCD: "lc", ZAR: "za"
-  };
+  /* Flags live in assets/images/flags and are named by the ISO 3166 country
+     code, which is the first two letters of the ISO 4217 currency code for
+     every file in the folder bar one. Deriving the name instead of hardcoding
+     a table means the folder stays the source of truth: drop in a new flag
+     (say il.webp) and that currency picks it up with no code change. Anything
+     the folder does not have falls back to a monogram disc via onerror. */
+  var FLAG_OVERRIDES = { XCD: "lc" };   /* East Caribbean dollar -> St Lucia */
 
   var RANGE_DAYS = { "1d": 5, "1w": 9, "1m": 32, "3m": 95, "1y": 370, "5y": 1830 };
 
@@ -161,16 +155,37 @@
     return d.getDate() + " " + d.toLocaleString("en-US", { month: "short" });
   }
 
-  /* Currencies with no flag asset get a lime monogram disc, built inline so
-     it behaves exactly like the other flag images. */
   function flagSrc(code) {
-    var cc = FLAGS[code];
-    if (cc) return "./assets/images/flags/" + cc + ".webp";
+    var file = FLAG_OVERRIDES[code] || code.slice(0, 2).toLowerCase();
+    return "./assets/images/flags/" + file + ".webp";
+  }
+
+  /* Stand-in for a currency the flags folder has no file for. */
+  function monogramSrc(code) {
     var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">' +
       '<circle cx="10" cy="10" r="10" fill="#283300"/>' +
       '<text x="10" y="13.5" text-anchor="middle" font-family="monospace" ' +
       'font-size="8" font-weight="700" fill="#cef739">' + code.slice(0, 2) + "</text></svg>";
     return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+  }
+
+  function useFlag(imgEl, code) {
+    imgEl.alt = "";
+    imgEl.onerror = function () {
+      this.onerror = null;              /* the data URI can't fail — stop here */
+      this.src = monogramSrc(code);
+    };
+    imgEl.src = flagSrc(code);
+  }
+
+  function flagImg(code, cls, size) {
+    var node = document.createElement("img");
+    if (cls) node.className = cls;
+    node.width = size || 20;
+    node.height = size || 20;
+    node.loading = "lazy";
+    useFlag(node, code);
+    return node;
   }
 
   function name(code) { return state.currencies[code] || code; }
@@ -287,18 +302,13 @@
 
   /* ------------------------------ Converter ----------------------------- */
 
-  function setFlag(imgEl, code) {
-    imgEl.src = flagSrc(code);
-    imgEl.alt = "";
-  }
-
   function renderConverter() {
     var r = rate(state.from, state.to);
 
     dom.fromCode.textContent = state.from;
     dom.toCode.textContent = state.to;
-    setFlag(dom.fromFlag, state.from);
-    setFlag(dom.toFlag, state.to);
+    useFlag(dom.fromFlag, state.from);
+    useFlag(dom.toFlag, state.to);
 
     dom.fromBtn.setAttribute("aria-label", "Send currency: " + name(state.from) + ". Change currency");
     dom.toBtn.setAttribute("aria-label", "Receive currency: " + name(state.to) + ". Change currency");
@@ -357,7 +367,7 @@
     btn.setAttribute("aria-selected", String(selected));
     btn.dataset.code = code;
 
-    btn.appendChild(img(flagSrc(code), "flag", 20));
+    btn.appendChild(flagImg(code, "flag", 20));
     btn.appendChild(el("span", "code", code));
     btn.appendChild(el("span", "name", name(code)));
     btn.appendChild(img("./assets/images/icon-check.svg", "check", 12));
@@ -678,7 +688,7 @@
       var key = pairKey(state.from, code);
 
       var li = el("li", "row");
-      li.appendChild(img(flagSrc(code), "row__flag", 24));
+      li.appendChild(flagImg(code, "row__flag", 24));
 
       var id = el("div", "row__id");
       id.appendChild(el("span", "row__code", code));
